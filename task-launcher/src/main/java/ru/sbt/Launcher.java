@@ -21,7 +21,7 @@ public class Launcher {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Exception causes interrupted sleeping thread", e);
         }
         System.out.println("\nTask №2\n--------------------------------------");
         TaskManager taskManager = new TaskManager(4);
@@ -34,7 +34,7 @@ public class Launcher {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Exception causes interrupted sleeping thread", e);
         }
         managerContext.getResultList().forEach(System.out::println);
         managerContext.showContext("Tasks context");
