@@ -2,6 +2,7 @@ package ru.sbt;
 
 import ru.sbt.manager.TaskManager;
 import ru.sbt.manager.context.Context;
+import ru.sbt.manager.threadPool.ThreadPool;
 import ru.sbt.task.Task;
 import ru.sbt.task.taskDomain.WorkTask;
 import ru.sbt.manager.workTasks.CallbackTask;
@@ -12,7 +13,7 @@ public class Launcher {
     public static void main(String[] args) {
         System.out.println("\nTask №1\n--------------------------------------");
         Task task = new Task(new WorkTask());
-        Runnable launchTask = () -> System.out.println(task.get());
+        Runnable launchTask = () -> System.out.println(Thread.currentThread().getName() + " >> " + task.get());
         for (int i = 0; i < 20; i++) {
             new Thread(launchTask).start();
             task.clear();
