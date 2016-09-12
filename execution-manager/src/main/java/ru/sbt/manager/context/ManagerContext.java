@@ -25,17 +25,17 @@ public class ManagerContext implements Context {
         resultList = new CopyOnWriteArrayList<>();
     }
 
-    public int updateFailedTass() {
+    public synchronized int updateFailedTass() {
         this.failedTasks = this.getFailedTaskCount() + 1;
         return this.getFailedTaskCount();
     }
 
-    public int updateCompletedTass() {
+    public synchronized int updateCompletedTass() {
         this.completedTasks = this.getCompletedTaskCount() + 1;
         return this.getCompletedTaskCount();
     }
 
-    public int updateInterruptedTasks(int count) {
+    public synchronized int updateInterruptedTasks(int count) {
         this.interruptedTasks = this.getInterruptedTaskCount() + count;
         return this.getInterruptedTaskCount();
     }
@@ -56,7 +56,7 @@ public class ManagerContext implements Context {
     }
 
     @Override
-    public void interrupt() {
+    public synchronized void interrupt() {
         if (!tasks.isEmpty()) {
             this.updateInterruptedTasks(tasks.size());
             tasks.clear();

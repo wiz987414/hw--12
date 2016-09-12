@@ -3,10 +3,6 @@ package ru.sbt.manager;
 import ru.sbt.manager.context.Context;
 import ru.sbt.manager.context.ManagerContext;
 import ru.sbt.manager.threadPool.FixedThreadPool;
-import ru.sbt.manager.threadPool.poolThread.PoolThread;
-import ru.sbt.manager.workTasks.CallbackTask;
-import ru.sbt.manager.workTasks.ExceptionTask;
-import ru.sbt.manager.workTasks.WorkingTask;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

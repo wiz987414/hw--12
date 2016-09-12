@@ -50,7 +50,6 @@ public class PoolThread extends Thread {
             synchronized (this.managerContext.getTasks()) {
                 while (this.managerContext.getTasks().isEmpty()) {
                     try {
-                        Thread.sleep(3000);
                         this.managerContext.getTasks().wait();
                     } catch (InterruptedException e) {
                         interruptPoolThread();
@@ -67,6 +66,7 @@ public class PoolThread extends Thread {
                         this.managerContext.updateCompletedTass();
                         this.threadContext.updateCompletedTass();
                     } else finalisePool();
+                    currentTask = null;
                 }
             } catch (RuntimeException e) {
                 this.managerContext.updateFailedTass();
