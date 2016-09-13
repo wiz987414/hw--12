@@ -63,8 +63,7 @@ public class ScalablePoolThread extends Thread {
                     try {
                         if (finishedWorkers.size() > this.minThreadCount) {
                             throw new InterruptedException();
-                        }
-                        else this.managerContext.getTasks().wait();
+                        } else this.managerContext.getTasks().wait();
                     } catch (InterruptedException e) {
                         interruptPoolThread();
                         break;
@@ -75,7 +74,6 @@ public class ScalablePoolThread extends Thread {
                 if (finishedWorkers.size() < this.maxThreadCount) {
                     boolean poolIsFull = true;
                     for (ScalablePoolThread worker : finishedWorkers) {
-                        System.out.println("++");
                         if (worker.getState() == State.WAITING) poolIsFull = false;
                     }
                     if (poolIsFull) finishedWorkers.add(new ScalablePoolThread(this.tasks,
