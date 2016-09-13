@@ -1,8 +1,8 @@
 package ru.sbt;
 
+import ru.sbt.manager.ScalableTaskManager;
 import ru.sbt.manager.TaskManager;
 import ru.sbt.manager.context.Context;
-import ru.sbt.manager.threadPool.ThreadPool;
 import ru.sbt.task.Task;
 import ru.sbt.task.taskDomain.WorkTask;
 import ru.sbt.manager.workTasks.CallbackTask;
@@ -38,5 +38,21 @@ public class Launcher {
         }
         managerContext.getResultList().forEach(System.out::println);
         managerContext.showContext("Tasks context");
+        System.out.println("\nTask №3\n--------------------------------------");
+        ScalableTaskManager scalableTaskManager = new ScalableTaskManager(2, 5);
+        for (int i = 0; i < 30; i++) {
+            if (i % 5 == 0)
+                scalableTaskManager.getTasks().add(new ExceptionTask());
+            scalableTaskManager.getTasks().add(new WorkingTask(scalableTaskManager.getExecutionContext()));
+        }
+        Context scalableContext = scalableTaskManager.execute(new CallbackTask(scalableTaskManager.getExecutionContext()),
+                scalableTaskManager.getTasks());
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Exception causes interrupted sleeping thread", e);
+        }
+        scalableContext.getResultList().forEach(System.out::println);
+        scalableContext.showContext("Tasks context");
     }
 }
