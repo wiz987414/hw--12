@@ -30,7 +30,7 @@ public class Launcher {
                 taskManager.getTasks().add(new ExceptionTask());
             taskManager.getTasks().add(new WorkingTask(taskManager.getExecutionContext()));
         }
-        Context managerContext = taskManager.execute(new CallbackTask(taskManager.getExecutionContext()), taskManager.getTasks());
+        Context managerContext = taskManager.execute(new CallbackTask(), taskManager.getTasks());
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -45,7 +45,7 @@ public class Launcher {
                 scalableTaskManager.getTasks().add(new ExceptionTask());
             scalableTaskManager.getTasks().add(new WorkingTask(scalableTaskManager.getExecutionContext()));
         }
-        Context scalableContext = scalableTaskManager.execute(new CallbackTask(scalableTaskManager.getExecutionContext()),
+        Context scalableContext = scalableTaskManager.execute(new CallbackTask(),
                 scalableTaskManager.getTasks());
         try {
             Thread.sleep(2000);
